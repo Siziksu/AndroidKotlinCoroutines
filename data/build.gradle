@@ -1,0 +1,49 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField "String", "BASE_URL", "\"https://jsonplaceholder.typicode.com\""
+        }
+        release {
+            buildConfigField "String", "BASE_URL", "\"https://jsonplaceholder.typicode.com\""
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation project(':domain')
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    def mainApplication = rootProject.ext.mainApplication
+
+    implementation mainApplication.kotlinStdLib
+    implementation mainApplication.kotlinReflect
+
+    implementation mainApplication.koin
+    implementation mainApplication.koinScope
+
+    implementation mainApplication.retrofit
+    implementation mainApplication.retrofitGsonConverter
+    implementation mainApplication.retrofitCoroutineAdapter
+    implementation mainApplication.okhttpLoggingInterceptor
+
+    testImplementation unitTesting.junit
+    testImplementation unitTesting.testRunner
+    testImplementation unitTesting.mockk
+    testImplementation unitTesting.testExtensions
+}

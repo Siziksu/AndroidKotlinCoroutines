@@ -1,0 +1,55 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.siziksu.coroutines"
+        minSdkVersion 15
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        debug {
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
+                    'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation project(':domain')
+    implementation project(':data')
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    def mainApplication = rootProject.ext.mainApplication
+    def unitTesting = rootProject.ext.unitTesting
+
+    implementation mainApplication.appCompat
+    implementation mainApplication.constraint
+    implementation mainApplication.design
+    implementation mainApplication.cardView
+    implementation mainApplication.recyclerView
+    implementation mainApplication.navigationFragment
+    implementation mainApplication.navigationUi
+    implementation mainApplication.legacySupport
+
+    implementation mainApplication.kotlinStdLib
+    implementation mainApplication.kotlinReflect
+    implementation mainApplication.kotlinCoroutinesAndroid
+
+    implementation mainApplication.koin
+    implementation mainApplication.koinScope
+
+    testImplementation unitTesting.junit
+    testImplementation unitTesting.testRunner
+    testImplementation unitTesting.mockk
+    testImplementation unitTesting.testExtensions
+}
