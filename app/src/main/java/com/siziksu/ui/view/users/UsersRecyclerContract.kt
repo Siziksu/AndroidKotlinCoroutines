@@ -11,7 +11,7 @@ interface UsersRecyclerContract {
 
         fun getAdapter(): RecyclerView.Adapter<*>
 
-        fun showItems(users: List<User>)
+        fun showItems(users: List<User>?)
 
         fun notifyDataSetChanged()
     }

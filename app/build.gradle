@@ -21,6 +21,9 @@ android {
                     'proguard-rules.pro'
         }
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -41,6 +44,9 @@ dependencies {
     implementation mainApplication.navigationUi
     implementation mainApplication.legacySupport
 
+    implementation mainApplication.lifeCycleRuntime
+    implementation mainApplication.lifeCycleExtensions
+
     implementation mainApplication.kotlinStdLib
     implementation mainApplication.kotlinReflect
     implementation mainApplication.kotlinCoroutinesAndroid
@@ -48,9 +54,9 @@ dependencies {
     implementation mainApplication.koin
     implementation mainApplication.koinScope
 
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation unitTesting.junit
     testImplementation unitTesting.testRunner
     testImplementation unitTesting.mockk
     testImplementation unitTesting.testExtensions
+    testImplementation unitTesting.coreTesting
 }

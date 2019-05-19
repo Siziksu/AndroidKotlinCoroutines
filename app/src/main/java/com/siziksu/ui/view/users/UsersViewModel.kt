@@ -6,24 +6,34 @@ import com.siziksu.ui.common.utils.Logs
 import com.siziksu.ui.mapper.UserDomainMapper
 import kotlinx.coroutines.launch
 
-class UsersPresenter(
-    private val view: UsersContract.View?,
+class UsersViewModel(
     private val getUsers: GetUsersContract,
     private val userDomainMapper: UserDomainMapper
-) : UsersContract.Presenter<UsersContract.View>() {
+) : UsersViewModelContract() {
 
     override fun getUsers() {
         launch {
+            showProgress()
             onSuccess(getUsers.execute(GetUsersContract.Param()))
         }
     }
 
     override fun onError(error: Throwable) {
-        view?.showError("Something went wrong")
+        errorLiveData.value = "Something went wrong"
         Logs.error("Error: " + error.message)
+        hideProgress()
     }
 
-    private fun onSuccess(usersDomain: List<UserDomain>) {
-        view?.showUsers(userDomainMapper.map(usersDomain))
+    override fun showProgress() {
+        progressLiveData.value = true
+    }
+
+    override fun hideProgress() {
+        progressLiveData.value = false
+    }
+
+    private fun onSuccess(userDomainList: List<UserDomain>) {
+        usersLiveData.value = userDomainMapper.map(userDomainList)
+        hideProgress()
     }
 }

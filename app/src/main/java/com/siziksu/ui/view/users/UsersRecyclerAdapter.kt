@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.siziksu.ui.R
 import com.siziksu.ui.model.User
 
-class UsersAdapter(private val context: Context?, private val manager: UsersRecyclerContract.Manager?) : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
-                                                                                                         UsersRecyclerContract.Adapter {
+class UsersRecyclerAdapter(private val context: Context?, private val manager: UsersRecyclerContract.Manager?) : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
+                                                                                                                 UsersRecyclerContract.Adapter {
 
     private var layoutManager: LinearLayoutManager? = null
 
@@ -19,17 +19,14 @@ class UsersAdapter(private val context: Context?, private val manager: UsersRecy
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_user, parent, false)
-        return UsersViewHolder(view)
+        return UsersRecyclerViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (holder) {
-            is UsersViewHolder -> {
-                val user = manager?.getItem(position)
-                holder.userName.text = user?.name
-                holder.userUsername.text = user?.username ?: "N/A"
-            }
-        }
+        val localHolder = holder as UsersRecyclerViewHolder
+        val user = manager?.getItem(position)
+        localHolder.userName.text = user?.name
+        localHolder.userUsername.text = user?.username ?: "N/A"
     }
 
     override fun getItemCount(): Int {
@@ -44,7 +41,7 @@ class UsersAdapter(private val context: Context?, private val manager: UsersRecy
         return this
     }
 
-    override fun showItems(users: List<User>) {
-        manager?.showItems(this, users)
+    override fun showItems(users: List<User>?) {
+        users?.let { manager?.showItems(this, users) }
     }
 }

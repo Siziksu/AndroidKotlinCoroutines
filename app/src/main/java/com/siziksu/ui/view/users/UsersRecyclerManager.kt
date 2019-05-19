@@ -2,7 +2,7 @@ package com.siziksu.ui.view.users
 
 import com.siziksu.ui.model.User
 
-internal class UsersManager : UsersRecyclerContract.Manager {
+internal class UsersRecyclerManager : UsersRecyclerContract.Manager {
 
     private val contacts = ArrayList<User>()
 

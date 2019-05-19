@@ -5,18 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.google.android.material.snackbar.Snackbar
 import com.siziksu.ui.R
-import com.siziksu.ui.model.User
+import com.siziksu.ui.common.observe
+import kotlinx.android.synthetic.main.fragment_users.frameLayout
+import kotlinx.android.synthetic.main.fragment_users.progressBar
 import kotlinx.android.synthetic.main.fragment_users.recyclerView
 import org.koin.android.ext.android.get
-import org.koin.core.parameter.ParameterList
 
-class UsersFragment : Fragment(), UsersContract.View {
+class UsersFragment : Fragment() {
 
-    private val presenter: UsersContract.Presenter<UsersContract.View>? = get { ParameterList(this) }
+    private var viewModelProvider: UsersViewModelProvider = get()
+    private val viewModel: UsersViewModelContract by lazy { ViewModelProviders.of(this, viewModelProvider).get(UsersViewModel::class.java) }
+
     private var adapter: UsersRecyclerContract.Adapter? = null
+    private var isFirstTimeCreated = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_users, container, false)
@@ -25,29 +30,25 @@ class UsersFragment : Fragment(), UsersContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
-        presenter?.getUsers()
+        if (isFirstTimeCreated) {
+            viewModel.getUsers()
+            isFirstTimeCreated = false
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        presenter?.onDestroy()
-    }
-
-    override fun showUsers(users: List<User>?) {
-        users?.let {
-            adapter?.showItems(users)
-        }
-    }
-
-    override fun showError(message: String) {
-        Snackbar.make(recyclerView, message, Snackbar.LENGTH_SHORT).show()
+        viewModel.onDestroy()
     }
 
     private fun initViews() {
         recyclerView.setHasFixedSize(true)
         recyclerView.itemAnimator = DefaultItemAnimator()
-        adapter = UsersAdapter(activity, UsersManager())
+        adapter = UsersRecyclerAdapter(activity, UsersRecyclerManager())
         recyclerView.adapter = adapter?.getAdapter()
         recyclerView.layoutManager = adapter?.getLayoutManager()
+        observe(viewModel.usersLiveData) { users -> (adapter as UsersRecyclerAdapter).showItems(users) }
+        observe(viewModel.errorLiveData) { message -> Snackbar.make(frameLayout, message ?: "Error: Unknown error.", Snackbar.LENGTH_SHORT).show() }
+        observe(viewModel.progressLiveData) { value -> value?.let { if (value) progressBar.visibility = View.VISIBLE else progressBar.visibility = View.GONE } }
     }
 }

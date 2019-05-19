@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.item_user.view.userItem
 import kotlinx.android.synthetic.main.item_user.view.userName
 import kotlinx.android.synthetic.main.item_user.view.userUsername
 
-internal class UsersViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+internal class UsersRecyclerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     private val userItem: RelativeLayout = view.userItem
     val userName: TextView = view.userName

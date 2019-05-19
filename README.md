@@ -16,11 +16,11 @@ To test the application, it uses [MockK](https://github.com/mockk/mockk).
 
 ## Architecture
 
-It uses three layers separated in three modules; `app`, `domain` and `data`. For the `ui` it uses the `MVP` model.
+It uses three layers separated in three modules; `app`, `domain` and `data`. For the `ui` it uses the `MVVM` model.
 The `app` and `data` modules are Android Modules, and the `domain` module is a Java Module.
 All is communicated through contracts.
 
-- The `app` module contains the `Views` and the `Presenters`.
+- The `app` module contains the `Views` and the `ViewModels`.
 - The `domain` module contains the `Use Cases`.
 - The `data` module contains the `Repositories` together with the `DataSources` and the `APIs`.
 
