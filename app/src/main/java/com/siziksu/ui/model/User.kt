@@ -1,4 +1,4 @@
-package com.siziksu.ui.view.model
+package com.siziksu.ui.model
 
 data class User(
     val id: Int,

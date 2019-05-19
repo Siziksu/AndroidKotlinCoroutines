@@ -11,6 +11,15 @@ class BackendRepository(
     private val userDataMapper: UserDataMapper
 ) : BackendRepositoryContract {
 
+    override suspend fun getUsers(): List<UserDomain> {
+        try {
+            return userDataMapper.map(backendDataSource.getUsers())
+        } catch (e: Exception) {
+            Logs.error("Error: " + e.message)
+            throw e
+        }
+    }
+
     override suspend fun getUser(userId: Int): UserDomain {
         try {
             return userDataMapper.map(backendDataSource.getUser(userId))

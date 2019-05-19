@@ -7,6 +7,9 @@ import retrofit2.http.Path
 
 interface BackendApi {
 
+    @GET("users")
+    fun getUsersAsync(): Deferred<List<UserData>>
+
     @GET("users/{userId}")
     fun getUserAsync(@Path("userId") id: Int): Deferred<UserData>
 }

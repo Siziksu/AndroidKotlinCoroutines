@@ -1,6 +1,6 @@
 package com.siziksu.domain.common.base
 
-interface UseCaseContract<P, R> {
+interface UseCaseContract<P, Any> {
 
-    suspend fun execute(params: P): R
+    suspend fun execute(params: P): Any
 }

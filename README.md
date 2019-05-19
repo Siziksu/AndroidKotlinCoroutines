@@ -26,11 +26,14 @@ All is communicated through contracts.
 
 ## What it does?
 
-It uses [JSONPlaceHolder](https://jsonplaceholder.typicode.com/) as a backend to retrieve a user, showing information about it.
+It uses [JSONPlaceHolder](https://jsonplaceholder.typicode.com/) as a backend to retrieve a list of users.
+When a user in the list is clicked, it goes to a detail view of that user.
 
 ## Calls used
 
 ```kolin
+https://jsonplaceholder.typicode.com/users
+
 https://jsonplaceholder.typicode.com/users/{{user_id}}
 ```
 

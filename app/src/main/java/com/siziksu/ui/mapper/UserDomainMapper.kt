@@ -1,8 +1,8 @@
-package com.siziksu.ui.view.mapper
+package com.siziksu.ui.mapper
 
 import com.siziksu.domain.model.UserDomain
-import com.siziksu.ui.view.common.Mapper
-import com.siziksu.ui.view.model.User
+import com.siziksu.ui.common.Mapper
+import com.siziksu.ui.model.User
 
 class UserDomainMapper : Mapper<UserDomain, User>() {
 

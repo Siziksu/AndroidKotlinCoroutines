@@ -1,4 +1,4 @@
-package com.siziksu.ui.view.common.base
+package com.siziksu.ui.common.base
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineExceptionHandler

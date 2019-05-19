@@ -1,4 +1,4 @@
-package com.siziksu.ui.view.common
+package com.siziksu.ui.common
 
 /**
  * This mapper will be used to map an object into another.

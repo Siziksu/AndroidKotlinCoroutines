@@ -3,41 +3,40 @@ package com.siziksu.ui.presenter
 import com.siziksu.domain.usecase.user.GetUser
 import com.siziksu.domain.usecase.user.GetUserContract
 import com.siziksu.ui.BaseUnitTest
+import com.siziksu.ui.mapper.UserDomainMapper
 import com.siziksu.ui.mocks.UserDomainBuilder
-import com.siziksu.ui.view.main.MainContract
-import com.siziksu.ui.view.main.MainFragment
-import com.siziksu.ui.view.main.MainPresenter
-import com.siziksu.ui.view.mapper.UserDomainMapper
-import com.siziksu.ui.view.model.User
+import com.siziksu.ui.model.User
+import com.siziksu.ui.view.detail.UserDetailContract
+import com.siziksu.ui.view.detail.UserDetailFragment
+import com.siziksu.ui.view.detail.UserDetailPresenter
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
 import io.mockk.slot
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
 
-class MainPresenterTest : BaseUnitTest() {
+class UserDetailPresenterTest : BaseUnitTest() {
 
     private val userDomain = UserDomainBuilder().getUserDomain(id = USER_ID)
     private val userDomainMapper = UserDomainMapper()
 
     private val getUser: GetUserContract = mockk<GetUser>()
-    private val view: MainContract.View = mockk<MainFragment>(relaxed = true)
-    private lateinit var presenter: MainContract.Presenter<MainContract.View>
+    private val view: UserDetailContract.View = mockk<UserDetailFragment>(relaxed = true)
+    private lateinit var presenter: UserDetailContract.Presenter<UserDetailContract.View>
 
     @Before
     fun setUp() {
-        presenter = MainPresenter(view, getUser, userDomainMapper)
+        presenter = UserDetailPresenter(view, getUser, userDomainMapper)
         presenter.coroutineDispatcher = Dispatchers.Unconfined
     }
 
     @Test
-    fun `MainPresenter getUser success`() = runBlocking {
+    fun `MainPresenter getUser success`() {
         coEvery { getUser.execute(any()) } returns userDomain
 
-        presenter.getUser()
+        presenter.getUser(USER_ID)
 
         val slot = slot<User>()
         coVerify { view.showUser(capture(slot)) }
@@ -46,10 +45,10 @@ class MainPresenterTest : BaseUnitTest() {
     }
 
     @Test
-    fun `MainPresenter getUser error`() = runBlocking {
+    fun `MainPresenter getUser error`() {
         coEvery { getUser.execute(any()) } throws Exception()
 
-        presenter.getUser()
+        presenter.getUser(USER_ID)
 
         val slot = slot<String>()
         coVerify { view.showError(capture(slot)) }
@@ -59,6 +58,6 @@ class MainPresenterTest : BaseUnitTest() {
 
     companion object {
 
-        const val USER_ID = 1
+        private const val USER_ID = 1
     }
 }

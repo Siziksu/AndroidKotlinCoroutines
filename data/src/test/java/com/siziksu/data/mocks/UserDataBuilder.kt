@@ -12,4 +12,10 @@ class UserDataBuilder {
         "phone",
         "website"
     )
+
+    fun getUserDataList(ids: List<Int>): List<UserData> {
+        val userDomainList = arrayListOf<UserData>()
+        ids.forEach { userDomainList.add(getAlbumData(it)) }
+        return userDomainList
+    }
 }

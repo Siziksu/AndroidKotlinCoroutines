@@ -14,6 +14,7 @@ import org.junit.Test
 class BackendRepositoryTest : BaseUnitTest() {
 
     private val userData = UserDataBuilder().getAlbumData(id = USER_ID)
+    private val userDataList = UserDataBuilder().getUserDataList(USER_IDS)
 
     private val backendDataSource = mockk<BackendDataSourceContract>()
     private val userMapper = UserDataMapper()
@@ -43,8 +44,30 @@ class BackendRepositoryTest : BaseUnitTest() {
         }
     }
 
+    @Test
+    fun `AlbumRepository getUsers success`() {
+        coEvery { backendDataSource.getUsers() } returns userDataList
+
+        val response = runBlocking { backendRepository.getUsers() }
+
+        assert(response[INDEX_TO_CHECK_ID].id == userDataList[INDEX_TO_CHECK_ID].id)
+    }
+
+    @Test
+    fun `AlbumRepository getUsers error`() {
+        coEvery { backendDataSource.getUsers() } throws Exception("DataSource Exception")
+        try {
+            runBlocking { backendRepository.getUsers() }
+        } catch (e: Exception) {
+            assert(e.message == "DataSource Exception")
+        }
+    }
+
     companion object {
 
-        const val USER_ID = 1
+        private const val USER_ID = 1
+        private const val INDEX_TO_CHECK_ID = 2
+
+        private val USER_IDS = listOf(1, 2, 3)
     }
 }

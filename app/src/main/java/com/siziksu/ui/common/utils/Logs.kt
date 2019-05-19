@@ -1,4 +1,4 @@
-package com.siziksu.ui.view.common.utils
+package com.siziksu.ui.common.utils
 
 import android.util.Log
 

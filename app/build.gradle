@@ -48,6 +48,7 @@ dependencies {
     implementation mainApplication.koin
     implementation mainApplication.koinScope
 
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation unitTesting.junit
     testImplementation unitTesting.testRunner
     testImplementation unitTesting.mockk
