@@ -21,7 +21,7 @@ class UserDetailFragment : Fragment() {
     private var viewModelProvider: UserViewModelProvider = get()
     private val viewModel: UserViewModelContract by lazy { ViewModelProviders.of(this, viewModelProvider).get(UserViewModel::class.java) }
 
-    private var isFirstTimeCreated = true
+    private var isFirstRun = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_user_detail, container, false)
@@ -31,10 +31,10 @@ class UserDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         readArguments()
         initViews()
-        if (isFirstTimeCreated) {
+        if (isFirstRun) {
             artistId?.let { viewModel.getUser(artistId) }
-            isFirstTimeCreated = false
         }
+        isFirstRun = false
     }
 
     override fun onDestroy() {

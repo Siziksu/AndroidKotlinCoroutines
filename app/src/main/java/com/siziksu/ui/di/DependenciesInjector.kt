@@ -13,7 +13,7 @@ fun Application.startInjector() = startKoin(
         dataSourceModule,
         repositoryModule,
         domainModule,
-        presenterModule,
+        viewModelModule,
         mapperDataModule,
         mapperUiModule
     )

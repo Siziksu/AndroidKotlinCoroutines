@@ -53,10 +53,12 @@ dependencies {
 
     implementation mainApplication.koin
     implementation mainApplication.koinScope
+    implementation mainApplication.koinViewModel
 
     testImplementation unitTesting.junit
     testImplementation unitTesting.testRunner
     testImplementation unitTesting.mockk
     testImplementation unitTesting.testExtensions
     testImplementation unitTesting.coreTesting
+    testImplementation unitTesting.koinTest
 }

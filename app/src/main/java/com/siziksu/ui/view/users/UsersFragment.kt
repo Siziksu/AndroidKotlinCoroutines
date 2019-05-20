@@ -21,7 +21,8 @@ class UsersFragment : Fragment() {
     private val viewModel: UsersViewModelContract by lazy { ViewModelProviders.of(this, viewModelProvider).get(UsersViewModel::class.java) }
 
     private var adapter: UsersRecyclerContract.Adapter? = null
-    private var isFirstTimeCreated = true
+
+    private var isFirstRun = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_users, container, false)
@@ -30,10 +31,10 @@ class UsersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
-        if (isFirstTimeCreated) {
+        if (isFirstRun) {
             viewModel.getUsers()
-            isFirstTimeCreated = false
         }
+        isFirstRun = false
     }
 
     override fun onDestroy() {
