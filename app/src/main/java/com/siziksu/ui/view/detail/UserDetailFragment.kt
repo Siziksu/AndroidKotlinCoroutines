@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
 import com.siziksu.ui.R
 import com.siziksu.ui.common.observe
+import com.siziksu.ui.di.USER_VIEW_MODEL
 import kotlinx.android.synthetic.main.fragment_user_detail.frameLayout
 import kotlinx.android.synthetic.main.fragment_user_detail.progressBar
 import kotlinx.android.synthetic.main.fragment_user_detail.userDetail
@@ -16,11 +17,9 @@ import org.koin.android.ext.android.get
 
 class UserDetailFragment : Fragment() {
 
+    private val viewModel: UserViewModelContract by lazy { ViewModelProviders.of(this, get(USER_VIEW_MODEL)).get(UserViewModel::class.java) }
+
     private var artistId: Int? = null
-
-    private var viewModelProvider: UserViewModelProvider = get()
-    private val viewModel: UserViewModelContract by lazy { ViewModelProviders.of(this, viewModelProvider).get(UserViewModel::class.java) }
-
     private var isFirstRun = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -43,26 +42,20 @@ class UserDetailFragment : Fragment() {
     }
 
     private fun readArguments() {
-        artistId = arguments?.getInt(ARTIST_ID_KEY) ?: 0
+        val bundle = arguments
+        bundle?.let {
+            artistId = UserDetailFragmentArgs.fromBundle(it).userId
+        }
     }
 
     private fun initViews() {
         observe(viewModel.userLiveData) { user ->
             user?.let {
-                val userInfo = "\n${user.name}\n${user.username}\n${user.email.toLowerCase()}\n${user.website}"
+                val userInfo = "\n${it.name}\n${it.username}\n${it.email.toLowerCase()}\n${it.website}"
                 userDetail.text = userInfo
             }
         }
         observe(viewModel.errorLiveData) { message -> Snackbar.make(frameLayout, message ?: "Error: Unknown error.", Snackbar.LENGTH_SHORT).show() }
-        observe(viewModel.progressLiveData) { value -> value?.let { if (value) progressBar.visibility = View.VISIBLE else progressBar.visibility = View.GONE } }
-    }
-
-    companion object {
-
-        private const val ARTIST_ID_KEY = "artistId"
-
-        fun setArguments(artistId: Int): Bundle = Bundle().apply {
-            this.putInt(ARTIST_ID_KEY, artistId)
-        }
+        observe(viewModel.progressLiveData) { value -> value?.let { if (it) progressBar.visibility = View.VISIBLE else progressBar.visibility = View.GONE } }
     }
 }

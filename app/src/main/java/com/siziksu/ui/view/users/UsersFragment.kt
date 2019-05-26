@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.google.android.material.snackbar.Snackbar
 import com.siziksu.ui.R
 import com.siziksu.ui.common.observe
+import com.siziksu.ui.di.USERS_VIEW_MODEL
 import kotlinx.android.synthetic.main.fragment_users.frameLayout
 import kotlinx.android.synthetic.main.fragment_users.progressBar
 import kotlinx.android.synthetic.main.fragment_users.recyclerView
@@ -17,10 +19,8 @@ import org.koin.android.ext.android.get
 
 class UsersFragment : Fragment() {
 
-    private var viewModelProvider: UsersViewModelProvider = get()
-    private val viewModel: UsersViewModelContract by lazy { ViewModelProviders.of(this, viewModelProvider).get(UsersViewModel::class.java) }
-
-    private var adapter: UsersRecyclerContract.Adapter? = null
+    private val viewModel: UsersViewModelContract by lazy { ViewModelProviders.of(this, get(USERS_VIEW_MODEL)).get(UsersViewModel::class.java) }
+    private lateinit var adapter: UsersRecyclerContract.Adapter
 
     private var isFirstRun = true
 
@@ -43,13 +43,17 @@ class UsersFragment : Fragment() {
     }
 
     private fun initViews() {
+        adapter = UsersRecyclerAdapter(manager = UsersRecyclerManager())
+        adapter.setOnItemClickListener { view, position ->
+            view.findNavController().navigate(UsersFragmentDirections.toUserDetail(position))
+
+        }
         recyclerView.setHasFixedSize(true)
         recyclerView.itemAnimator = DefaultItemAnimator()
-        adapter = UsersRecyclerAdapter(activity, UsersRecyclerManager())
-        recyclerView.adapter = adapter?.getAdapter()
-        recyclerView.layoutManager = adapter?.getLayoutManager()
+        recyclerView.adapter = adapter.getAdapter()
+        recyclerView.layoutManager = adapter.getLayoutManager()
         observe(viewModel.usersLiveData) { users -> (adapter as UsersRecyclerAdapter).showItems(users) }
         observe(viewModel.errorLiveData) { message -> Snackbar.make(frameLayout, message ?: "Error: Unknown error.", Snackbar.LENGTH_SHORT).show() }
-        observe(viewModel.progressLiveData) { value -> value?.let { if (value) progressBar.visibility = View.VISIBLE else progressBar.visibility = View.GONE } }
+        observe(viewModel.progressLiveData) { value -> value?.let { if (it) progressBar.visibility = View.VISIBLE else progressBar.visibility = View.GONE } }
     }
 }

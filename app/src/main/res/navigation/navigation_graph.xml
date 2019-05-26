@@ -13,12 +13,7 @@
             tools:layout="@layout/fragment_users">
         <action
                 android:id="@+id/toUserDetail"
-                app:destination="@id/userDetailFragment">
-            <argument
-                    android:name="userId"
-                    android:defaultValue="0"
-                    app:argType="integer" />
-        </action>
+                app:destination="@id/userDetailFragment" />
     </fragment>
     <fragment
             android:id="@+id/userDetailFragment"
@@ -27,7 +22,6 @@
             tools:layout="@layout/fragment_user_detail">
         <argument
                 android:name="userId"
-                android:defaultValue="0"
                 app:argType="integer" />
     </fragment>
 </navigation>

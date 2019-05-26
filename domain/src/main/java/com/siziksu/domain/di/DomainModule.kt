@@ -8,7 +8,7 @@ import org.koin.dsl.module.module
 
 val domainModule = module {
 
-    single<GetUsersContract> { GetUsers(get()) }
-
     single<GetUserContract> { GetUser(get()) }
+
+    single<GetUsersContract> { GetUsers(get()) }
 }

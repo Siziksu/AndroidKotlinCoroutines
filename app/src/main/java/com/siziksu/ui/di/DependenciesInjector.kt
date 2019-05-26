@@ -12,9 +12,9 @@ fun Application.startInjector() = startKoin(
     listOf(
         dataSourceModule,
         repositoryModule,
+        mapperDataModule,
         domainModule,
         viewModelModule,
-        mapperDataModule,
         mapperUiModule
     )
 )
