@@ -1,5 +1,6 @@
 package com.siziksu.ui.view.users
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -43,7 +44,7 @@ class UsersFragment : Fragment() {
     }
 
     private fun initViews() {
-        adapter = UsersRecyclerAdapter(manager = UsersRecyclerManager())
+        adapter = UsersRecyclerAdapter(activity as Context, UsersRecyclerManager())
         adapter.setOnItemClickListener { view, position ->
             view.findNavController().navigate(UsersFragmentDirections.toUserDetail(position))
 

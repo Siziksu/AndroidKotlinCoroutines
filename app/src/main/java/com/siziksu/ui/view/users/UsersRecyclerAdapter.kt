@@ -8,10 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.siziksu.ui.R
 import com.siziksu.ui.model.User
-import org.koin.standalone.StandAloneContext.getKoin
 
 class UsersRecyclerAdapter(
-    private val context: Context = getKoin().koinContext.get(),
+    private val context: Context,
     private val manager: UsersRecyclerContract.Manager
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
     UsersRecyclerContract.Adapter {
@@ -24,7 +23,7 @@ class UsersRecyclerAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.item_user, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.user_list_item, parent, false)
         return UsersRecyclerViewHolder(view, onItemClick)
     }
 

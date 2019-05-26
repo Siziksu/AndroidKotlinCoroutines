@@ -4,9 +4,9 @@ import android.view.View
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.item_user.view.userItem
-import kotlinx.android.synthetic.main.item_user.view.userName
-import kotlinx.android.synthetic.main.item_user.view.userUsername
+import kotlinx.android.synthetic.main.user_list_item.view.userItem
+import kotlinx.android.synthetic.main.user_list_item.view.userName
+import kotlinx.android.synthetic.main.user_list_item.view.userUsername
 
 internal class UsersRecyclerViewHolder(view: View, onItemClick: ((View, Int) -> Unit)?) : RecyclerView.ViewHolder(view) {
 
