@@ -2,7 +2,7 @@ package com.siziksu.ui.view.users
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.siziksu.ui.model.User
+import com.siziksu.ui.model.Node
 
 interface UsersRecyclerContract {
 
@@ -12,7 +12,7 @@ interface UsersRecyclerContract {
 
         fun getAdapter(): RecyclerView.Adapter<*>
 
-        fun showItems(users: List<User>?)
+        fun showItems(users: List<Node>?)
 
         fun setOnItemClickListener(onItemClick: (View, Int) -> Unit)
 
@@ -23,8 +23,10 @@ interface UsersRecyclerContract {
 
         val count: Int
 
-        fun showItems(adapter: Adapter, list: List<User>)
+        fun showItems(adapter: Adapter, list: List<Node>)
 
-        fun getItem(item: Int): User
+        fun getItem(position: Int): Node
+
+        fun getItemType(position: Int): Int
     }
 }

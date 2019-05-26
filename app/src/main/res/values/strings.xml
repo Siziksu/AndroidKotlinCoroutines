@@ -3,4 +3,6 @@
     <string name="error_unknown">Error: Unknown error.</string>
     <string name="error_something_went_wrong">Something went wrong</string>
     <string name="error_with_description">"Error: %s"</string>
+    <string name="header_title">Kotlin</string>
+    <string name="header_subtitle">JSONPlaceHolder</string>
 </resources>

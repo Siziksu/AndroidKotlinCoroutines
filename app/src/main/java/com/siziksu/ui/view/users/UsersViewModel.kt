@@ -6,6 +6,8 @@ import com.siziksu.ui.App
 import com.siziksu.ui.R
 import com.siziksu.ui.common.utils.Logs
 import com.siziksu.ui.mapper.UserDomainMapper
+import com.siziksu.ui.model.Header
+import com.siziksu.ui.model.Node
 import kotlinx.coroutines.launch
 
 class UsersViewModel(
@@ -35,7 +37,12 @@ class UsersViewModel(
     }
 
     private fun onSuccess(userDomainList: List<UserDomain>) {
-        usersLiveData.value = userDomainMapper.map(userDomainList)
+        val list = ArrayList<Node>()
+        list.add(Header(getApplication<App>().getString(R.string.header_title), getApplication<App>().getString(R.string.header_subtitle)))
+        list.addAll(userDomainMapper.map(userDomainList))
+        list.add(Header(getApplication<App>().getString(R.string.header_title), getApplication<App>().getString(R.string.header_subtitle)))
+        list.addAll(userDomainMapper.map(userDomainList))
+        usersLiveData.value = list
         hideProgress()
     }
 }

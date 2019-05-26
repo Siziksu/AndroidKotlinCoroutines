@@ -10,9 +10,9 @@ import com.google.android.material.snackbar.Snackbar
 import com.siziksu.ui.R
 import com.siziksu.ui.common.observe
 import com.siziksu.ui.di.USER_VIEW_MODEL
-import kotlinx.android.synthetic.main.fragment_user_detail.frameLayout
 import kotlinx.android.synthetic.main.fragment_user_detail.progressBar
 import kotlinx.android.synthetic.main.fragment_user_detail.userDetail
+import kotlinx.android.synthetic.main.fragment_user_detail.userFragment
 import org.koin.android.ext.android.get
 
 class UserDetailFragment : Fragment() {
@@ -55,7 +55,7 @@ class UserDetailFragment : Fragment() {
                 userDetail.text = userInfo
             }
         }
-        observe(viewModel.errorLiveData) { message -> Snackbar.make(frameLayout, message ?: getString(R.string.error_unknown), Snackbar.LENGTH_SHORT).show() }
+        observe(viewModel.errorLiveData) { message -> Snackbar.make(userFragment, message ?: getString(R.string.error_unknown), Snackbar.LENGTH_SHORT).show() }
         observe(viewModel.progressLiveData) { value -> value?.let { if (it) progressBar.visibility = View.VISIBLE else progressBar.visibility = View.GONE } }
     }
 }

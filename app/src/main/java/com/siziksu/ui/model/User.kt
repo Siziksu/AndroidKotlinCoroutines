@@ -7,4 +7,9 @@ data class User(
     val email: String,
     val phone: String,
     val website: String
-)
+) : Node() {
+
+    init {
+        type = NodeType.USER
+    }
+}

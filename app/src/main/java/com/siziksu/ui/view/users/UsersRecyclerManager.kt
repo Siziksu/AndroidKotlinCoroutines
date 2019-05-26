@@ -1,21 +1,25 @@
 package com.siziksu.ui.view.users
 
-import com.siziksu.ui.model.User
+import com.siziksu.ui.model.Node
 
 internal class UsersRecyclerManager : UsersRecyclerContract.Manager {
 
-    private val contacts = ArrayList<User>()
+    private val items = ArrayList<Node>()
 
     override val count: Int
-        get() = contacts.size
+        get() = items.size
 
-    override fun showItems(adapter: UsersRecyclerContract.Adapter, list: List<User>) {
-        contacts.clear()
-        contacts.addAll(list)
+    override fun showItems(adapter: UsersRecyclerContract.Adapter, list: List<Node>) {
+        items.clear()
+        items.addAll(list)
         adapter.notifyDataSetChanged()
     }
 
-    override fun getItem(item: Int): User {
-        return contacts[item]
+    override fun getItem(position: Int): Node {
+        return items[position]
+    }
+
+    override fun getItemType(position: Int): Int {
+        return items[position].type.value
     }
 }
