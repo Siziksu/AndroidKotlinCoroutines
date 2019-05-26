@@ -53,8 +53,8 @@ class UsersFragment : Fragment() {
         recyclerView.itemAnimator = DefaultItemAnimator()
         recyclerView.adapter = adapter.getAdapter()
         recyclerView.layoutManager = adapter.getLayoutManager()
-        observe(viewModel.usersLiveData) { users -> (adapter as UsersRecyclerAdapter).showItems(users) }
-        observe(viewModel.errorLiveData) { message -> Snackbar.make(frameLayout, message ?: "Error: Unknown error.", Snackbar.LENGTH_SHORT).show() }
+        observe(viewModel.usersLiveData) { users -> adapter.showItems(users) }
+        observe(viewModel.errorLiveData) { message -> Snackbar.make(frameLayout, message ?: getString(R.string.error_unknown), Snackbar.LENGTH_SHORT).show() }
         observe(viewModel.progressLiveData) { value -> value?.let { if (it) progressBar.visibility = View.VISIBLE else progressBar.visibility = View.GONE } }
     }
 }
