@@ -2,11 +2,13 @@ package com.siziksu.ui.view.users
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.siziksu.domain.usecase.user.GetUsersContract
+import com.siziksu.domain.common.CoroutineCaseContract
+import com.siziksu.domain.model.UserDomain
+import com.siziksu.domain.usecase.user.GetUsers
 import com.siziksu.ui.mapper.UserDomainMapper
 
 class UsersViewModelProvider(
-    private val getUsers: GetUsersContract,
+    private val getUsers: CoroutineCaseContract<List<UserDomain>, GetUsers.Params>,
     private val userDomainMapper: UserDomainMapper
 ) : ViewModelProvider.Factory {
 

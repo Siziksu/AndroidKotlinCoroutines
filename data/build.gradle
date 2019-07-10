@@ -32,7 +32,6 @@ dependencies {
     def mainApplication = rootProject.ext.mainApplication
 
     implementation mainApplication.kotlinStdLib
-    implementation mainApplication.kotlinReflect
 
     implementation mainApplication.koin
     implementation mainApplication.koinScope

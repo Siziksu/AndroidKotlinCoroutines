@@ -1,4 +1,4 @@
-package com.siziksu.data.di
+package com.siziksu.data.di.modules
 
 import com.siziksu.data.BuildConfig
 import com.siziksu.data.datasource.backend.BackendApi

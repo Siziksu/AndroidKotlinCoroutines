@@ -8,7 +8,7 @@ dependencies {
     def mainApplication = rootProject.ext.mainApplication
 
     implementation mainApplication.kotlinStdLib
-    implementation mainApplication.kotlinReflect
+    implementation mainApplication.kotlinCoroutinesAndroid
 
     implementation mainApplication.koin
     implementation mainApplication.koinScope

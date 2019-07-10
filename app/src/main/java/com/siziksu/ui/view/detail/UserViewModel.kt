@@ -1,7 +1,8 @@
 package com.siziksu.ui.view.detail
 
+import com.siziksu.domain.common.CoroutineCaseContract
 import com.siziksu.domain.model.UserDomain
-import com.siziksu.domain.usecase.user.GetUserContract
+import com.siziksu.domain.usecase.user.GetUser
 import com.siziksu.ui.App
 import com.siziksu.ui.R
 import com.siziksu.ui.common.utils.Logs
@@ -9,7 +10,7 @@ import com.siziksu.ui.mapper.UserDomainMapper
 import kotlinx.coroutines.launch
 
 class UserViewModel(
-    private val getUser: GetUserContract,
+    private val getUser: CoroutineCaseContract<UserDomain, GetUser.Params>,
     private val userDomainMapper: UserDomainMapper
 ) : UserViewModelContract() {
 
@@ -17,7 +18,7 @@ class UserViewModel(
         launch {
             userId?.let {
                 showProgress()
-                onSuccess(getUser.execute(GetUserContract.Param(userId)))
+                getUser.run(::onSuccess, ::onError, GetUser.Params(userId))
             }
         }
     }

@@ -1,6 +1,8 @@
 package com.siziksu.ui.di
 
 import androidx.lifecycle.ViewModelProvider
+import com.siziksu.domain.di.modules.GET_USER
+import com.siziksu.domain.di.modules.GET_USERS
 import com.siziksu.ui.view.detail.UserViewModelProvider
 import com.siziksu.ui.view.users.UsersViewModelProvider
 import org.koin.dsl.module.module
@@ -10,7 +12,7 @@ const val USERS_VIEW_MODEL = "Users ViewModel"
 
 val viewModelModule = module {
 
-    single<ViewModelProvider.Factory>(USER_VIEW_MODEL) { UserViewModelProvider(get(), get()) }
+    single<ViewModelProvider.Factory>(USER_VIEW_MODEL) { UserViewModelProvider(get(GET_USER), get()) }
 
-    single<ViewModelProvider.Factory>(USERS_VIEW_MODEL) { UsersViewModelProvider(get(), get()) }
+    single<ViewModelProvider.Factory>(USERS_VIEW_MODEL) { UsersViewModelProvider(get(GET_USERS), get()) }
 }

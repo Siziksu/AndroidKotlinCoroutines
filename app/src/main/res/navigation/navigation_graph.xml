@@ -9,21 +9,21 @@
     <fragment
             android:id="@+id/usersFragment"
             android:name="com.siziksu.ui.view.users.UsersFragment"
-            android:label="fragment_main"
+            android:label="fragment_users"
             tools:layout="@layout/fragment_users">
         <action
-                android:id="@+id/toUserDetail"
-                app:destination="@id/userDetailFragment"
+                android:id="@+id/toUser"
+                app:destination="@id/userFragment"
                 app:enterAnim="@anim/slide_from_right"
                 app:exitAnim="@anim/slide_to_left"
                 app:popEnterAnim="@anim/slide_from_left"
                 app:popExitAnim="@anim/slide_to_right" />
     </fragment>
     <fragment
-            android:id="@+id/userDetailFragment"
-            android:name="com.siziksu.ui.view.detail.UserDetailFragment"
-            android:label="fragment_user_detail"
-            tools:layout="@layout/fragment_user_detail">
+            android:id="@+id/userFragment"
+            android:name="com.siziksu.ui.view.detail.UserFragment"
+            android:label="fragment_user"
+            tools:layout="@layout/fragment_user">
         <argument
                 android:name="userId"
                 app:argType="integer" />

@@ -49,8 +49,6 @@ dependencies {
     implementation mainApplication.lifeCycleExtensions
 
     implementation mainApplication.kotlinStdLib
-    implementation mainApplication.kotlinReflect
-    implementation mainApplication.kotlinCoroutinesAndroid
 
     implementation mainApplication.koin
     implementation mainApplication.koinScope
