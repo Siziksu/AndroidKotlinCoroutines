@@ -7,7 +7,6 @@ import com.siziksu.ui.App
 import com.siziksu.ui.R
 import com.siziksu.ui.common.utils.Logs
 import com.siziksu.ui.mapper.UserDomainMapper
-import kotlinx.coroutines.launch
 
 class UserViewModel(
     private val getUser: CoroutineCaseContract<UserDomain, GetUser.Params>,
@@ -15,18 +14,14 @@ class UserViewModel(
 ) : UserViewModelContract() {
 
     override fun getUser(userId: Int?) {
-        launch {
-            userId?.let {
-                showProgress()
-                getUser.run(::onSuccess, ::onError, GetUser.Params(userId))
-            }
+        userId?.let {
+            showProgress()
+            getUser.run(::onSuccess, ::onError, GetUser.Params(userId))
         }
     }
 
-    override fun onError(error: Throwable) {
-        errorLiveData.value = error.message
-        Logs.error(String.format(getApplication<App>().getString(R.string.error_with_description), error.message))
-        hideProgress()
+    override fun onDestroy() {
+        getUser.onDestroy()
     }
 
     override fun showProgress() {
@@ -39,6 +34,12 @@ class UserViewModel(
 
     private fun onSuccess(userDomain: UserDomain) {
         userLiveData.value = userDomainMapper.map(userDomain)
+        hideProgress()
+    }
+
+    private fun onError(error: Throwable) {
+        errorLiveData.value = error.message
+        Logs.error(String.format(getApplication<App>().getString(R.string.error_with_description), error.message))
         hideProgress()
     }
 }

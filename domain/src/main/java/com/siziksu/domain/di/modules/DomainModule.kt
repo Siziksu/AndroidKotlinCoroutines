@@ -11,7 +11,7 @@ const val GET_USERS = "GetUsers"
 
 val domainModule = module {
 
-    single<CoroutineCaseContract<UserDomain, GetUser.Params>>(GET_USER) { GetUser(get()) }
+    factory<CoroutineCaseContract<UserDomain, GetUser.Params>>(GET_USER) { GetUser(get()) }
 
-    single<CoroutineCaseContract<List<UserDomain>, GetUsers.Params>>(GET_USERS) { GetUsers(get()) }
+    factory<CoroutineCaseContract<List<UserDomain>, GetUsers.Params>>(GET_USERS) { GetUsers(get()) }
 }

@@ -12,7 +12,7 @@ const val USERS_VIEW_MODEL = "Users ViewModel"
 
 val viewModelModule = module {
 
-    single<ViewModelProvider.Factory>(USER_VIEW_MODEL) { UserViewModelProvider(get(GET_USER), get()) }
+    factory<ViewModelProvider.Factory>(USER_VIEW_MODEL) { UserViewModelProvider(get(GET_USER), get()) }
 
-    single<ViewModelProvider.Factory>(USERS_VIEW_MODEL) { UsersViewModelProvider(get(GET_USERS), get()) }
+    factory<ViewModelProvider.Factory>(USERS_VIEW_MODEL) { UsersViewModelProvider(get(GET_USERS), get()) }
 }
