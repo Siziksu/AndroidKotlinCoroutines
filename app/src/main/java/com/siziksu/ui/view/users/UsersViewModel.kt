@@ -42,8 +42,6 @@ class UsersViewModel(
         val list = ArrayList<Node>()
         list.add(Header(getApplication<App>().getString(R.string.header_title), getApplication<App>().getString(R.string.header_subtitle)))
         list.addAll(userDomainMapper.map(userDomainList))
-        list.add(Header(getApplication<App>().getString(R.string.header_title), getApplication<App>().getString(R.string.header_subtitle)))
-        list.addAll(userDomainMapper.map(userDomainList))
         usersLiveData.value = list
         hideProgress()
     }
